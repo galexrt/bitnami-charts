@@ -58,7 +58,7 @@ spec:
       {{- else }}
       affinity:
         podAffinity: {{- include "common.affinities.pods" (dict "type" $.Values.shardsvr.arbiter.podAffinityPreset "component" "shardsvr-arbiter" "context" $) | nindent 10 }}
-        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" $.Values.shardsvr.arbiter.podAntiAffinityPreset "component" "shardsvr-arbiter" "context" $) | nindent 10 }}
+        podAntiAffinity: {{- include "common.affinities.pods" (dict "type" $.Values.shardsvr.arbiter.podAntiAffinityPreset "component" "shardsvr-arbiter" "extraMatchLabels" (dict "shard" $i) "context" $) | nindent 10 }}
         nodeAffinity: {{- include "common.affinities.nodes" (dict "type" $.Values.shardsvr.arbiter.nodeAffinityPreset.type "key" $.Values.shardsvr.arbiter.nodeAffinityPreset.key "values" $.Values.shardsvr.arbiter.nodeAffinityPreset.values) | nindent 10 }}
       {{- end }}
       {{- if $.Values.shardsvr.arbiter.nodeSelector }}
